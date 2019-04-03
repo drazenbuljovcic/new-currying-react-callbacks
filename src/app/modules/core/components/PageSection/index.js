@@ -1,22 +1,96 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DefaultContainer from './Containers/Default';
-import DefaultItem from './Items/Default';
+import { COLLECTION_PROP_TYPE } from './prop-types/section.item';
 
-const PageSection = ({ Container, Item }) => (
-  <Container
-    Item={Item} />
-);
+import { DEFAULT_COMPONENT_ID, DEFAULT_CONTAINER_COMPONENT_ID, DEFAULT_ITEM_COMPONENT_ID } from './constants'
+
+import theme from '../../constants/theme';
+
+import DefaultContainer from './Components/Containers/Default';
+import DefaultItem from './Components/Items/Default';
+
+import { Wrapper } from './styled.components';
+
+const { colors } = theme;
+
+const PageSection = ({
+  id,
+  className,
+  style,
+
+  items,
+
+  Container,
+  ContainerProps,
+
+  Item,
+  ItemProps,
+
+  componentId,
+}) => {
+  const elementProps = {
+    id: `${componentId}-${id}`,
+    className: `${componentId} ${className}`,
+    style,
+  };
+
+  const internalContainerProps = {
+    ...ContainerProps,
+    componentId: DEFAULT_CONTAINER_COMPONENT_ID,
+  };
+
+  const internalItemProps = {
+    ...ItemProps,
+    componentId: DEFAULT_ITEM_COMPONENT_ID,
+  };
+
+  return (
+    <Wrapper {...elementProps}>
+      <Container
+        Item={Item}
+        ItemProps={internalItemProps}
+        items={items}
+        {...internalContainerProps} />
+    </Wrapper>
+  );
+};
+
+PageSection.AVAILAVLE_CONTAINERS = {
+  default: DefaultContainer,
+};
+
+PageSection.AVAILAVLE_ITEMS = {
+  default: DefaultItem,
+};
+
+PageSection.AVAILABLE_COLORS = {
+  default: colors.default,
+  black: colors.default,
+};
 
 PageSection.propTypes = {
+  items: COLLECTION_PROP_TYPE,
+
   Container: PropTypes.oneOfType([PropTypes.node, PropTypes.element, PropTypes.func]),
+  ContainerProps: PropTypes.shape(),
+
   Item: PropTypes.oneOfType([PropTypes.node, PropTypes.element, PropTypes.func]),
+  ItemProps: PropTypes.shape(),
+
+  componentId: PropTypes.string,
 };
 
 PageSection.defaultProps= {
-  Container: DefaultContainer,
-  Item: DefaultItem,
+  items: [],
+
+  Container: PageSection.AVAILAVLE_CONTAINERS.default,
+  ContainerProps: {},
+
+  Item: PageSection.AVAILAVLE_ITEMS.default,
+  ItemProps: {},
+
+  componentId: DEFAULT_COMPONENT_ID,
 };
 
 export default PageSection;

@@ -1,24 +1,27 @@
 import Activator from '../../../../utils/cores/Activator';
 
-// header
-const HEADER = 'HEADER';
-const ITEM = 'ITEM';
-const LOGO = 'LOGO';
-
-// main
-const MAIN = 'MAIN';
-const CONTAINER = 'CONTAINER';
+import { AVAILABLE_COMPONENTS, AVAILABLE_CONTAINERS, AVAILABLE_ITEMS } from './constants';
 
 const ACTIVATOR_STATUSES = Activator.STATUSES;
 
-const AVAILABLE_COMPONENTS = {
+const {
   HEADER,
+  MAIN,
+  FOOTER,
+} = AVAILABLE_CONTAINERS;
+
+const { 
   ITEM,
   LOGO,
   
-  MAIN,
   CONTAINER,
-};
+  SECTION,
+  ELEMENT,
+
+  CTA,
+} = AVAILABLE_ITEMS;
+
+// containers
 
 const AppStructureFactory = () => {
   const tree = {
@@ -28,25 +31,34 @@ const AppStructureFactory = () => {
     },
     [MAIN]: {
       [CONTAINER]: Activator({ status: Activator.STATUSES.OFF }),
+      [SECTION]: Activator({ status: Activator.STATUSES.OFF }),
+      [ELEMENT]: Activator({ status: Activator.STATUSES.OFF }),
     },
+    [FOOTER]: {
+      [CTA]: Activator({ status: Activator.STATUSES.OFF }),
+    }
   };
 
   const treeShape = {
     containers: {
-      items: [HEADER, MAIN],
-      itemNames: [HEADER, MAIN],
+      items: [HEADER, MAIN, FOOTER],
+      itemNames: [HEADER, MAIN, FOOTER],
       byName: {
         HEADER,
         MAIN,
+        FOOTER,
       },
     },
     items: {
-      items: [ITEM, LOGO, CONTAINER],
-      itemNames: [ITEM, LOGO, CONTAINER],
+      items: [ITEM, LOGO, CONTAINER, SECTION, ELEMENT, CTA],
+      itemNames: [ITEM, LOGO, CONTAINER, SECTION, ELEMENT, CTA],
       byName: {
         ITEM,
         LOGO,
         CONTAINER,
+        SECTION,
+        ELEMENT,
+        CTA,
       },
     },
   };
@@ -78,4 +90,9 @@ const AppStructureFactory = () => {
 
 export default AppStructureFactory();
 
-export { ACTIVATOR_STATUSES, AVAILABLE_COMPONENTS };
+export {
+  ACTIVATOR_STATUSES,
+  AVAILABLE_COMPONENTS,
+  AVAILABLE_CONTAINERS,
+  AVAILABLE_ITEMS,
+};

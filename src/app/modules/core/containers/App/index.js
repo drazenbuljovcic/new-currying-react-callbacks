@@ -1,8 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { ThemeContext } from 'styled-components';
 
 import AppStructureStateProvider, { ACTIVATOR_STATUSES, AVAILABLE_COMPONENTS } from './factory';
+import { DEFAULT_COMPONENT_ID } from './constants';
 
 import PageSection from '../../components/PageSection';
+
+import WithThemeContext from './hoc/theme.context';
+import { App as AppComponent } from './styled.components';
+
 
 const {
   HEADER,
@@ -11,6 +18,11 @@ const {
 
   MAIN,
   CONTAINER,
+  SECTION,
+  ELEMENT,
+  
+  FOOTER,
+  CTA,
 } = AVAILABLE_COMPONENTS;
 
 class App extends React.Component {
@@ -20,8 +32,6 @@ class App extends React.Component {
     this.state = {
       AppStructure: AppStructureStateProvider(),
     };
-
-    console.log(this.state.AppStructure.AVAILABLE_COMPONENTS)
   }
 
   setStatusAs = status => container => (item) => () => {
@@ -58,6 +68,9 @@ class App extends React.Component {
   // // main
   setActiveStatusForMainChild = this.setActiveStatusForComponent(MAIN);
   setInactiveStatusForMainChild = this.setInactiveStatusForComponent(MAIN);
+  // // footer
+  setActiveStatusForFooterChild = this.setActiveStatusForComponent(FOOTER);
+  setInactiveStatusForFooterChild = this.setInactiveStatusForComponent(FOOTER);
 
   // items
   // // header
@@ -70,25 +83,115 @@ class App extends React.Component {
   setActiveStatusForMainContainer = this.setActiveStatusForMainChild(CONTAINER);
   setInactiveStatusForMainContainer = this.setInactiveStatusForMainChild(CONTAINER);
 
+  setActiveStatusForMainSection = this.setActiveStatusForMainChild(SECTION);
+  setInactiveStatusForMainSection = this.setInactiveStatusForMainChild(SECTION);
+
+  setActiveStatusForMainElement = this.setActiveStatusForMainChild(ELEMENT);
+  setInactiveStatusForMainElement = this.setInactiveStatusForMainChild(ELEMENT);
+
+  // // footer
+  setActiveStatusForFooterCTA = this.setActiveStatusForFooterChild(CTA);
+  setInactiveStatusForFooterCTA = this.setInactiveStatusForFooterChild(CTA);
+
   render() {
+    const { componentId } = this.props;
+
     const tree = this.state.AppStructure.getTreeStructure();
+    console.log(tree);
 
     return (
-      <div className="App">
-        <div>
-          <button onClick={this.setActiveStatusForHeaderItem}>SET</button>
-          <p>{tree[HEADER][ITEM].isActive() ? 'active' : 'inactive'}</p>
-          <button onClick={this.setInactiveStatusForHeaderItem}>SET</button>
-        </div>
+      <React.Fragment>
+        <ThemeContext.Consumer>
+          {({ colors }) => (
+            <AppComponent id={componentId}>
+                <PageSection
+                  id={HEADER}
+                  ContainerProps={{
+                    id: HEADER,
+                    backgroundColor: colors.light,
+                  }}
+                  items={[
+                    {
+                      id: ITEM,
+                      stamp: ITEM,
+                      active: tree[HEADER][ITEM].isActive(),
+                      onAdd: this.setActiveStatusForHeaderItem,
+                      onRemove: this.setInactiveStatusForHeaderItem,
+                      backgroundColor: colors.lighter,
+                    },
+                    {
+                      id: LOGO,
+                      stamp: LOGO,
+                      active: tree[HEADER][LOGO].isActive(),
+                      onAdd: this.setActiveStatusForHeaderLogo,
+                      onRemove: this.setInactiveStatusForHeaderLogo,
+                      backgroundColor: colors.darker,
+                    },
+                  ]} />
 
-        <div>
-          <button onClick={this.setActiveStatusForHeaderLogo}>SET</button>
-          <p>{tree[HEADER][LOGO].isActive() ? 'active' : 'inactive'}</p>
-          <button onClick={this.setInactiveStatusForHeaderLogo}>SET</button>
-        </div>
-      </div>
+                <PageSection
+                  id={MAIN}
+                  ContainerProps={{
+                    id: MAIN,
+                  }}
+                  items={[
+                    {
+                      id: CONTAINER,
+                      stamp: CONTAINER,
+                      active: tree[MAIN][CONTAINER].isActive(),
+                      onAdd: this.setActiveStatusForMainContainer,
+                      onRemove: this.setInactiveStatusForMainContainer,
+                      backgroundColor: colors.darker,
+                    },
+                    {
+                      id: SECTION,
+                      stamp: SECTION,
+                      active: tree[MAIN][SECTION].isActive(),
+                      onAdd: this.setActiveStatusForMainSection,
+                      onRemove: this.setInactiveStatusForMainSection,
+                      backgroundColor: colors.light,
+                    },
+                    {
+                      id: ELEMENT,
+                      stamp: ELEMENT,
+                      active: tree[MAIN][ELEMENT].isActive(),
+                      onAdd: this.setActiveStatusForMainElement,
+                      onRemove: this.setInactiveStatusForMainElement,
+                      backgroundColor: colors.darker,
+                    },
+                  ]} />
+
+                  <PageSection
+                    id={FOOTER}
+                    ContainerProps={{
+                      id: FOOTER,
+                      backgroundColor: colors.darker,
+                    }}
+                    items={[
+                      {
+                        id: CTA,
+                        stamp: CTA,
+
+                        active: tree[FOOTER][CTA].isActive(),
+                        onAdd: this.setActiveStatusForFooterCTA,
+                        onRemove: this.setInactiveStatusForFooterCTA,
+                        backgroundColor: colors.lightest,
+                      },
+                    ]} />
+            </AppComponent>
+          )}
+        </ThemeContext.Consumer>
+      </React.Fragment>
     );
   }
 };
 
-export default App;
+App.propTypes = {
+  componentId: PropTypes.string,
+};
+
+App.defaultProps = {
+  componentId: DEFAULT_COMPONENT_ID,
+};
+
+export default WithThemeContext(App);

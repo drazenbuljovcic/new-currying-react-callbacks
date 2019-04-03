@@ -1,14 +1,9 @@
-const ON = 'ON';
-const OFF = 'OFF';
+import { STATUSES, STATUSES_SHAPE } from './constants';
+
+const { ON, OFF } = STATUSES;
 
 const Activator = ({ status }) => {
-  const STATUSES = {
-    statuses: [ON, OFF],
-    byStatus: {
-      [ON]: ON,
-      [OFF]: OFF,
-    },
-  };
+  const STATUSES = STATUSES_SHAPE;
 
   if (!STATUSES.byStatus[status]) {
     throw new Error('Invalid state!');
