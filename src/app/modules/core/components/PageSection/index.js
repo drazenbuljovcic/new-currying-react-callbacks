@@ -56,11 +56,11 @@ const PageSection = ({
   );
 };
 
-PageSection.AVAILAVLE_CONTAINERS = {
+PageSection.AVAILABLE_CONTAINERS = {
   default: DefaultContainer,
 };
 
-PageSection.AVAILAVLE_ITEMS = {
+PageSection.AVAILABLE_ITEMS = {
   default: DefaultItem,
 };
 
@@ -84,10 +84,10 @@ PageSection.propTypes = {
 PageSection.defaultProps= {
   items: [],
 
-  Container: PageSection.AVAILAVLE_CONTAINERS.default,
+  Container: PageSection.AVAILABLE_CONTAINERS.default,
   ContainerProps: {},
 
-  Item: PageSection.AVAILAVLE_ITEMS.default,
+  Item: PageSection.AVAILABLE_ITEMS.default,
   ItemProps: {},
 
   componentId: DEFAULT_COMPONENT_ID,
