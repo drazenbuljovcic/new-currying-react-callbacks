@@ -10,7 +10,6 @@ import PageSection from '../../components/PageSection';
 import WithThemeContext from './hoc/theme.context';
 import { App as AppComponent } from './styled.components';
 
-
 const {
   HEADER,
   ITEM,
@@ -25,7 +24,7 @@ const {
   CTA,
 } = AVAILABLE_COMPONENTS;
 
-class App extends React.Component {
+export class App extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -97,7 +96,6 @@ class App extends React.Component {
     const { componentId } = this.props;
 
     const tree = this.state.AppStructure.getTreeStructure();
-    console.log(tree);
 
     return (
       <React.Fragment>

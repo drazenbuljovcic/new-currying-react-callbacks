@@ -1,0 +1,6 @@
+{
+  "testRegex": "(/tests/app.*|(\\.|/)(test|spec))\\.jsx?$",
+  "coverageDirectory": "./tests/coverage",
+  "modulePaths": ["./src/"],
+  "setupFilesAfterEnv": ["./tests/test.setup.js"]
+}

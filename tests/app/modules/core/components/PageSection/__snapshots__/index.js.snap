@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page section component should render with it's default snapshot 1`] = `
+<styled.div
+  className="PageSection undefined"
+  id="PageSection-undefined"
+>
+  <DefaultContainer
+    Item={[Function]}
+    ItemProps={
+      Object {
+        "componentId": "PageSection-Item",
+      }
+    }
+    backgroundColor={null}
+    className={null}
+    componentId="PageSection-Container"
+    id={null}
+    items={Array []}
+    style={Object {}}
+  />
+</styled.div>
+`;

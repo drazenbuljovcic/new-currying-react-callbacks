@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component tests should match it's default snapshot 1`] = `
+<ThemeProvider
+  theme={
+    Object {
+      "colors": Object {
+        "black": "#000",
+        "darker": "#652022",
+        "default": "#d4333e",
+        "light": "#fb8a49",
+        "lighter": "#f9c853",
+        "lightest": "#f6f3d8",
+        "white": "#fff",
+      },
+      "gaps": Object {
+        "large": "25px",
+        "medium": "15px",
+        "normal": "10px",
+        "small": "5px",
+        "standard": "20px",
+        "xl": "30px",
+        "xs": "3px",
+        "xxl": "40px",
+      },
+      "shadows": Object {
+        "text": Object {
+          "normal": "1px 1px 2px #000",
+        },
+      },
+    }
+  }
+>
+  <App
+    componentId="App"
+  />
+</ThemeProvider>
+`;
+
+exports[`App component tests should match its default snapshot 1`] = `
+<ThemeProvider
+  theme={
+    Object {
+      "colors": Object {
+        "black": "#000",
+        "darker": "#652022",
+        "default": "#d4333e",
+        "light": "#fb8a49",
+        "lighter": "#f9c853",
+        "lightest": "#f6f3d8",
+        "white": "#fff",
+      },
+      "gaps": Object {
+        "large": "25px",
+        "medium": "15px",
+        "normal": "10px",
+        "small": "5px",
+        "standard": "20px",
+        "xl": "30px",
+        "xs": "3px",
+        "xxl": "40px",
+      },
+      "shadows": Object {
+        "text": Object {
+          "normal": "1px 1px 2px #000",
+        },
+      },
+    }
+  }
+>
+  <App
+    componentId="App"
+  />
+</ThemeProvider>
+`;

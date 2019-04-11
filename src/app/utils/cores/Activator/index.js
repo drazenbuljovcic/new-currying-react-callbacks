@@ -2,7 +2,7 @@ import { STATUSES, STATUSES_SHAPE } from './constants';
 
 const { ON, OFF } = STATUSES;
 
-const Activator = ({ status }) => {
+const Activator = ({ status = OFF } = {}) => {
   const STATUSES = STATUSES_SHAPE;
 
   if (!STATUSES.byStatus[status]) {
@@ -33,18 +33,8 @@ const Activator = ({ status }) => {
   const setActiveStatus = setStatus({ status: ON });
   const setInactiveStatus = setStatus({ status: OFF });
 
-  const toggleStatus = ({ status }) =>  {
-    switch (status) {
-      case getAvailableStatuses().ON: {
-        setActiveStatus();
-        return this;
-      }
-      case getAvailableStatuses().OFF: {
-        setInactiveStatus();
-        return this;
-      }
-      default: return this;
-    }
+  const toggleStatus = ({ status } = {}) =>  {
+    setStatus({ status })();
   }
     
   const getStatus = () => {

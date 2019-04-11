@@ -81,7 +81,7 @@ PageSection.propTypes = {
   componentId: PropTypes.string,
 };
 
-PageSection.defaultProps= {
+PageSection.defaultProps = {
   items: [],
 
   Container: PageSection.AVAILABLE_CONTAINERS.default,
