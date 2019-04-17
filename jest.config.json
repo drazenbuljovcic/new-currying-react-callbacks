@@ -2,5 +2,5 @@
   "testRegex": "(/tests/app.*|(\\.|/)(test|spec))\\.jsx?$",
   "coverageDirectory": "./tests/coverage",
   "modulePaths": ["./src/"],
-  "setupTestFrameworkScriptFile": "./tests/test.setup.js"
+  "setupFilesAfterEnv": ["./tests/test.setup.js"]
 }
