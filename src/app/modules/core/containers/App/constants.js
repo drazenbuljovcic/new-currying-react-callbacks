@@ -24,7 +24,7 @@ export const AVAILABLE_CONTAINERS = {
 export const AVAILABLE_ITEMS = {
   ITEM,
   LOGO,
-  
+
   CONTAINER,
   SECTION,
   ELEMENT,

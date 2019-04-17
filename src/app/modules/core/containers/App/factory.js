@@ -10,10 +10,10 @@ const {
   FOOTER,
 } = AVAILABLE_CONTAINERS;
 
-const { 
+const {
   ITEM,
   LOGO,
-  
+
   CONTAINER,
   SECTION,
   ELEMENT,
@@ -36,7 +36,7 @@ const AppStructureFactory = () => {
     },
     [FOOTER]: {
       [CTA]: Activator({ status: Activator.STATUSES.OFF }),
-    }
+    },
   };
 
   const treeShape = {
@@ -62,26 +62,20 @@ const AppStructureFactory = () => {
       },
     },
   };
-  
-  function AppStructure() {
-    const getFlatTreeShape = () => {
-      return AVAILABLE_COMPONENTS;
-    };
 
-    const getTreeShape = () => {
-      return treeShape;
-    };
-  
-    const getTreeStructure = () => {
-      return tree;
-    };
+  function AppStructure() {
+    const getFlatTreeShape = () => AVAILABLE_COMPONENTS;
+
+    const getTreeShape = () => treeShape;
+
+    const getTreeStructure = () => tree;
 
     return {
       getFlatTreeShape,
       getTreeShape,
       getTreeStructure,
     };
-  };
+  }
 
   AppStructure.AVAILABLE_COMPONENTS = AVAILABLE_COMPONENTS;
 

@@ -1,15 +1,15 @@
- import React from 'react';
- import { shallow } from 'enzyme';
- import toJson from 'enzyme-to-json';
+import React from 'react';
+import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
 
- import PageSection from 'app/modules/core/components/PageSection';
- import DefultPageSectionContainer from 'app/modules/core/components/PageSection/Components/Containers/Default';
- import DefultPageSectionItem from 'app/modules/core/components/PageSection/Components/Items/Default';
+import PageSection from 'app/modules/core/components/PageSection';
+import DefultPageSectionContainer from 'app/modules/core/components/PageSection/Components/Containers/Default';
+import DefultPageSectionItem from 'app/modules/core/components/PageSection/Components/Items/Default';
 
- const TestContainer = () => {};
- const TestItem = () => {};
+const TestContainer = () => {};
+const TestItem = () => {};
 
- describe('Page section component', () => {
+describe('Page section component', () => {
   it('should render with it\'s default snapshot', () => {
     const section = shallow(<PageSection />);
     expect(toJson(section)).toMatchSnapshot();

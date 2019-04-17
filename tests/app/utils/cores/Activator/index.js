@@ -1,4 +1,4 @@
-import Activator from '../../../../src/app/utils/cores/Activator';
+import Activator from '../../../../../src/app/utils/cores/Activator';
 
 describe('Activator tests', () => {
   it('Shields against improper state on initialization', () => {
@@ -16,7 +16,7 @@ describe('Activator tests', () => {
 
   it('Properly uses dedicated active setter function', () => {
     const activator = Activator();
-    
+
     activator.setActiveStatus();
 
     expect(activator.isActive()).toBe(true);
@@ -25,7 +25,7 @@ describe('Activator tests', () => {
 
   it('Properly uses dedicated inactive setter function', () => {
     const activator = Activator();
-    
+
     activator.setInactiveStatus();
 
     expect(activator.isActive()).toBe(false);
@@ -35,7 +35,7 @@ describe('Activator tests', () => {
   it('Shields against improper state on toggles', () => {
     const activator = Activator();
     expect(() => {
-      activator.toggleStatus({ status: 'NO' })
+      activator.toggleStatus({ status: 'NO' });
     }).toThrow();
   });
 

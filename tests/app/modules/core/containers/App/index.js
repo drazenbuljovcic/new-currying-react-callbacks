@@ -17,31 +17,31 @@ describe('App component tests', () => {
     const app = shallow(<App />);
     expect(toJson(app)).toMatchSnapshot();
   });
-  
+
   it('should be wrapped in a theme context by default', () => {
     const app = shallow(<App />);
     expect(app.find(ThemeProvider).length).toEqual(1);
   });
-  
+
   it('should be mounted with the factory component tree', () => {
     const themedApp = mount(
       <ThemeProvider theme={theme}>
         <PlainAppComponent />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     const appInstance = themedApp.children().instance();
     expect(structureProvider.getTreeShape())
-      .toBe(appInstance.state.AppStructure.getTreeShape());;
+      .toBe(appInstance.state.AppStructure.getTreeShape());
   });
 
   it('should render three sections by the default configuration', () => {
     const themedApp = mount(
       <ThemeProvider theme={theme}>
         <PlainAppComponent />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
-    
+
     expect(themedApp.find(PageSection).length)
       .toEqual(Object.keys(structureProvider.getTreeStructure()).length);
   });

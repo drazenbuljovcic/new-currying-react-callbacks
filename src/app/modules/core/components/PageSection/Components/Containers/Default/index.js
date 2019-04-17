@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { DEFAULT as DEFAULT_PROPS, PROP_TYPE } from '../../../prop-types/section.container';
+import { DEFAULT as DEFAULT_PROPS, SHAPE as DEFAULT_SHAPE } from '../../../prop-types/section.container';
+import { COLLECTION_PROP_TYPE as ITEM_COLLECTION_PROP_TYPE } from '../../../prop-types/section.item';
 
 import { DEFAULT_CONTAINER_COMPONENT_ID } from '../../../constants';
 
@@ -23,7 +24,7 @@ const DefaultContainer = ({
   componentId,
 }) => {
   const elementProps = {
-    ...(id && { id: `${componentId}-${id}`}),
+    ...(id && { id: `${componentId}-${id}` }),
     className: `${componentId} ${className}`,
     style,
 
@@ -31,27 +32,27 @@ const DefaultContainer = ({
   };
 
   return (
-    <Wrapper {...elementProps} >
+    <Wrapper {...elementProps}>
       {items.map(item => (
         <Item key={item.id} item={item} />
       ))}
     </Wrapper>
   );
-}
+};
 
 DefaultContainer.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.shape(),
 
-  item: PROP_TYPE,
+  ...DEFAULT_SHAPE,
+
+  items: ITEM_COLLECTION_PROP_TYPE,
 
   wide: PropTypes.bool,
   high: PropTypes.bool,
   width: PropTypes.number,
   height: PropTypes.number,
-
-  backgroundColor: PropTypes.string,
 
   Item: PropTypes.oneOfType([PropTypes.node, PropTypes.element, PropTypes.func]),
   ItemProps: PropTypes.shape(),

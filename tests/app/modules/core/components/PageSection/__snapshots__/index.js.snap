@@ -2,8 +2,9 @@
 
 exports[`Page section component should render with it's default snapshot 1`] = `
 <styled.div
-  className="PageSection undefined"
-  id="PageSection-undefined"
+  className="PageSection null"
+  id="PageSection-null"
+  style={Object {}}
 >
   <DefaultContainer
     Item={[Function]}

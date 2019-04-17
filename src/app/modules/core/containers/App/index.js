@@ -19,7 +19,7 @@ const {
   CONTAINER,
   SECTION,
   ELEMENT,
-  
+
   FOOTER,
   CTA,
 } = AVAILABLE_COMPONENTS;
@@ -33,7 +33,7 @@ export class App extends React.Component {
     };
   }
 
-  setStatusAs = status => container => (item) => () => {
+  setStatusAs = status => container => item => () => {
     if (!ACTIVATOR_STATUSES[status]) {
       throw new Error('Unable to set unknown activator status!');
     }
@@ -47,14 +47,13 @@ export class App extends React.Component {
     if (!AppStructure.getTreeShape().items.byName[item]) {
       throw new Error('Unable to set status on an unknown item!');
     }
-    
+
     const component = AppStructure.getTreeStructure()[container][item];
     if (component.compareStatus(status)) return;
 
     component.toggleStatus({ status });
 
     this.setState({ AppStructure });
-    return AppStructure;
   };
 
   setActiveStatusForComponent = this.setStatusAs(ACTIVATOR_STATUSES.ON);
@@ -94,95 +93,96 @@ export class App extends React.Component {
 
   render() {
     const { componentId } = this.props;
+    const { AppStructure } = this.state;
 
-    const tree = this.state.AppStructure.getTreeStructure();
+    const tree = AppStructure.getTreeStructure();
 
     return (
       <React.Fragment>
         <ThemeContext.Consumer>
           {({ colors }) => (
             <AppComponent id={componentId}>
-                <PageSection
-                  id={HEADER}
-                  ContainerProps={{
-                    id: HEADER,
+              <PageSection
+                id={HEADER}
+                ContainerProps={{
+                  id: HEADER,
+                  backgroundColor: colors.light,
+                }}
+                items={[
+                  {
+                    id: ITEM,
+                    stamp: ITEM,
+                    active: tree[HEADER][ITEM].isActive(),
+                    onAdd: this.setActiveStatusForHeaderItem,
+                    onRemove: this.setInactiveStatusForHeaderItem,
+                    backgroundColor: colors.lighter,
+                  },
+                  {
+                    id: LOGO,
+                    stamp: LOGO,
+                    active: tree[HEADER][LOGO].isActive(),
+                    onAdd: this.setActiveStatusForHeaderLogo,
+                    onRemove: this.setInactiveStatusForHeaderLogo,
+                    backgroundColor: colors.darker,
+                  },
+                ]} />
+
+              <PageSection
+                id={MAIN}
+                ContainerProps={{
+                  id: MAIN,
+                }}
+                items={[
+                  {
+                    id: CONTAINER,
+                    stamp: CONTAINER,
+                    active: tree[MAIN][CONTAINER].isActive(),
+                    onAdd: this.setActiveStatusForMainContainer,
+                    onRemove: this.setInactiveStatusForMainContainer,
+                    backgroundColor: colors.darker,
+                  },
+                  {
+                    id: SECTION,
+                    stamp: SECTION,
+                    active: tree[MAIN][SECTION].isActive(),
+                    onAdd: this.setActiveStatusForMainSection,
+                    onRemove: this.setInactiveStatusForMainSection,
                     backgroundColor: colors.light,
-                  }}
-                  items={[
-                    {
-                      id: ITEM,
-                      stamp: ITEM,
-                      active: tree[HEADER][ITEM].isActive(),
-                      onAdd: this.setActiveStatusForHeaderItem,
-                      onRemove: this.setInactiveStatusForHeaderItem,
-                      backgroundColor: colors.lighter,
-                    },
-                    {
-                      id: LOGO,
-                      stamp: LOGO,
-                      active: tree[HEADER][LOGO].isActive(),
-                      onAdd: this.setActiveStatusForHeaderLogo,
-                      onRemove: this.setInactiveStatusForHeaderLogo,
-                      backgroundColor: colors.darker,
-                    },
-                  ]} />
+                  },
+                  {
+                    id: ELEMENT,
+                    stamp: ELEMENT,
+                    active: tree[MAIN][ELEMENT].isActive(),
+                    onAdd: this.setActiveStatusForMainElement,
+                    onRemove: this.setInactiveStatusForMainElement,
+                    backgroundColor: colors.darker,
+                  },
+                ]} />
 
-                <PageSection
-                  id={MAIN}
-                  ContainerProps={{
-                    id: MAIN,
-                  }}
-                  items={[
-                    {
-                      id: CONTAINER,
-                      stamp: CONTAINER,
-                      active: tree[MAIN][CONTAINER].isActive(),
-                      onAdd: this.setActiveStatusForMainContainer,
-                      onRemove: this.setInactiveStatusForMainContainer,
-                      backgroundColor: colors.darker,
-                    },
-                    {
-                      id: SECTION,
-                      stamp: SECTION,
-                      active: tree[MAIN][SECTION].isActive(),
-                      onAdd: this.setActiveStatusForMainSection,
-                      onRemove: this.setInactiveStatusForMainSection,
-                      backgroundColor: colors.light,
-                    },
-                    {
-                      id: ELEMENT,
-                      stamp: ELEMENT,
-                      active: tree[MAIN][ELEMENT].isActive(),
-                      onAdd: this.setActiveStatusForMainElement,
-                      onRemove: this.setInactiveStatusForMainElement,
-                      backgroundColor: colors.darker,
-                    },
-                  ]} />
+              <PageSection
+                id={FOOTER}
+                ContainerProps={{
+                  id: FOOTER,
+                  backgroundColor: colors.darker,
+                }}
+                items={[
+                  {
+                    id: CTA,
+                    stamp: CTA,
 
-                  <PageSection
-                    id={FOOTER}
-                    ContainerProps={{
-                      id: FOOTER,
-                      backgroundColor: colors.darker,
-                    }}
-                    items={[
-                      {
-                        id: CTA,
-                        stamp: CTA,
-
-                        active: tree[FOOTER][CTA].isActive(),
-                        onAdd: this.setActiveStatusForFooterCTA,
-                        onRemove: this.setInactiveStatusForFooterCTA,
-                        backgroundColor: colors.lightest,
-                      },
-                    ]} />
+                    active: tree[FOOTER][CTA].isActive(),
+                    onAdd: this.setActiveStatusForFooterCTA,
+                    onRemove: this.setInactiveStatusForFooterCTA,
+                    backgroundColor: colors.lightest,
+                  },
+                ]} />
             </AppComponent>
           )}
         </ThemeContext.Consumer>
       </React.Fragment>
     );
   }
-};
+}
 
 App.propTypes = {
   componentId: PropTypes.string,

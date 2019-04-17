@@ -3,9 +3,9 @@ import { STATUSES, STATUSES_SHAPE } from './constants';
 const { ON, OFF } = STATUSES;
 
 const Activator = ({ status = OFF } = {}) => {
-  const STATUSES = STATUSES_SHAPE;
+  const INTERNAL_STATUSES = STATUSES_SHAPE;
 
-  if (!STATUSES.byStatus[status]) {
+  if (!INTERNAL_STATUSES.byStatus[status]) {
     throw new Error('Invalid state!');
   }
 
@@ -14,32 +14,28 @@ const Activator = ({ status = OFF } = {}) => {
   };
 
   const isActive = () => state.status === ON;
-  const compareStatus = status => state.status === status;
+  const compareStatus = inputStatus => state.status === inputStatus;
 
-  const getAvailableStatuses = () => {
-    return STATUSES.byStatus;
-  }
+  const getAvailableStatuses = () => INTERNAL_STATUSES.byStatus;
 
-  const setStatus = ({ status }) => () => {
-    if (!STATUSES.byStatus[status]) {
+  const setStatus = ({ status: inputStatus }) => () => {
+    if (!INTERNAL_STATUSES.byStatus[inputStatus]) {
       throw new Error('Invalid state!');
     }
 
-    state = { ...state, status };
-    
+    state = { ...state, status: inputStatus };
+
     return this;
-  }
+  };
 
   const setActiveStatus = setStatus({ status: ON });
   const setInactiveStatus = setStatus({ status: OFF });
 
-  const toggleStatus = ({ status } = {}) =>  {
-    setStatus({ status })();
-  }
-    
-  const getStatus = () => {
-    return state.status;
-  }
+  const toggleStatus = ({ status: inputStatus } = {}) => {
+    setStatus({ status: inputStatus })();
+  };
+
+  const getStatus = () => state.status;
 
   return {
     isActive,
@@ -54,6 +50,6 @@ const Activator = ({ status = OFF } = {}) => {
   };
 };
 
-Activator.STATUSES = {ON, OFF};
+Activator.STATUSES = { ON, OFF };
 
 export default Activator;

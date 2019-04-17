@@ -5,7 +5,12 @@ import { DEFAULT as DEFAULT_PROPS, PROP_TYPE } from '../../../prop-types/section
 
 import { DEFAULT_ITEM_COMPONENT_ID } from '../../../constants';
 
-import { Block, Stamp, Cancel, ActiveLabel } from './styled.componets';
+import {
+  Block,
+  Stamp,
+  Cancel,
+  ActiveLabel,
+} from './styled.componets';
 
 import TRANSLATIONS from './translations';
 
@@ -21,7 +26,7 @@ const DefaultItem = ({
 
     onAdd,
     onRemove,
-  
+
     stamp,
     active,
   },
@@ -31,7 +36,7 @@ const DefaultItem = ({
   const identifier = id || itemId;
 
   const elementProps = {
-    ...(identifier && { id: `${componentId}-${identifier}`}),
+    ...(identifier && { id: `${componentId}-${identifier}` }),
     className: `${componentId} ${className}`,
     style,
 
@@ -56,7 +61,7 @@ DefaultItem.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.shape(),
-  
+
   item: PROP_TYPE,
 
   onAdd: PropTypes.func,
@@ -69,12 +74,12 @@ DefaultItem.defaultProps = {
   id: null,
   className: null,
   style: {},
-  
+
   ...DEFAULT_PROPS,
 
   onAdd: null,
   onRemove: null,
-  
+
   componentId: DEFAULT_ITEM_COMPONENT_ID,
 };
 

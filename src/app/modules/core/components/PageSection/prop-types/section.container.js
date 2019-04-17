@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const SHAPE = {
+export const SHAPE = {
   backgroundColor: PropTypes.string,
 };
 

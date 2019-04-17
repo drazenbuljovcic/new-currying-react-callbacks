@@ -36,4 +36,9 @@ const ActiveLabel = styled.span`
   font-size: .8em;
 `;
 
-export { Block, Stamp, Cancel, ActiveLabel };
+export {
+  Block,
+  Stamp,
+  Cancel,
+  ActiveLabel,
+};

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { COLLECTION_PROP_TYPE } from './prop-types/section.item';
 
-import { DEFAULT_COMPONENT_ID, DEFAULT_CONTAINER_COMPONENT_ID, DEFAULT_ITEM_COMPONENT_ID } from './constants'
+import { DEFAULT_COMPONENT_ID, DEFAULT_CONTAINER_COMPONENT_ID, DEFAULT_ITEM_COMPONENT_ID } from './constants';
 
 import theme from '../../constants/theme';
 
@@ -70,6 +70,10 @@ PageSection.AVAILABLE_COLORS = {
 };
 
 PageSection.propTypes = {
+  id: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.shape(),
+
   items: COLLECTION_PROP_TYPE,
 
   Container: PropTypes.oneOfType([PropTypes.node, PropTypes.element, PropTypes.func]),
@@ -82,6 +86,10 @@ PageSection.propTypes = {
 };
 
 PageSection.defaultProps = {
+  id: null,
+  className: null,
+  style: {},
+
   items: [],
 
   Container: PageSection.AVAILABLE_CONTAINERS.default,
